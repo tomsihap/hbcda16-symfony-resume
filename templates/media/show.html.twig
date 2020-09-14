@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Média: {{ media.title }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-header">
+            <span class="badge badge-primary">{{ media.category.title }}</span>
+            {{ media.title }}
+            <hr>
+            Tags:
+            {% for tag in media.tags %}
+                {{ loop.index }}: {{ tag.title }}
+                {% if not loop.last %}
+                    ,
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>
+                    <strong>Date de sortie: </strong> {{ media.releaseDate | date('d/m/Y') }}
+                </li>
+                <li>
+                    <strong>Staff: </strong> {{ media.informations.staffList | default('non renseigné') }}
+                </li>
+                <li>
+                    <strong>Classification: </strong> {{ media.informations.classification | default('non renseigné') }}
+                </li>
+            </ul>
+
+        </div>
+        <div class="card-footer">
+            {{ media.creator.fullName }} ({{ media.creator.job.title }})
+        </div>
+    </div>
+
+{% endblock %}
+

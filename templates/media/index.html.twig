@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des medias{% endblock %}
+
+{% block body %}
+
+    {% if search is defined and search == true %}
+        <h1>Résultats de recherche</h1>
+        <h2>Nombre de résultats: {{ medias | length }}</h2>
+    {% else %}
+        <h1>Liste des médias</h1>
+
+        {% if app.user %}
+            <a href="{{ path('media_new') }}" class="btn btn-primary">Ajouter un média</a>
+        {% endif %}
+
+    {% endif %}
+
+
+    <hr>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Créateur</th>
+            <th>Tags</th>
+            <th>Date de sortie</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for media in medias %}
+            <tr>
+                <td>
+                    <a href="{{ path('media_show', { id: media.id }) }}">
+                        <strong>{{ media.id }} - {{ media.title }}</strong>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('category_show', {id: media.category.id}) }}" class="badge badge-primary">{{ media.category.title }}</a>
+                </td>
+                <td>
+                    {{ media.creator.fullName }} - <em>{{ media.creator.job.title }}</em>
+                </td>
+                <td>
+                    {% for tag in media.tags %}
+                        <a href="{{ path('tag_show', {id: tag.id}) }}" class="badge badge-success">{{ tag.title }}</a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ media.releaseDate | date('d/m/Y') }}
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

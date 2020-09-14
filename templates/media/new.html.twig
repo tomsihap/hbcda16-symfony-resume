@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un média</h1>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.releaseDate) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.category) }}
+            {{ form_row(form.creator) }}
+            {{ form_row(form.tags) }}
+        </div>
+        <div class="col-12">
+            <h2>Informations supplémentaires</h2>
+            <div class="card">
+                <div class="card-body">
+                    {{ form_widget(form.informations) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_widget(form) }}
+        <button class="btn btn-success float-right">Créer le média</button>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block title %}
+Créer un média
+{% endblock %}
+
